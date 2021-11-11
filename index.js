@@ -1,14 +1,12 @@
 require('dotenv').config();
 var request = require('request');
 const schedule = require('node-schedule');
-const axios = require('axios');
 const util = require('util');
 
 require("./registerCommands.js")();
 const checkNews = require("./newsChecker.js");
 
 const { Client, Intents } = require('discord.js');
-const { last } = require('cheerio/lib/api/traversing');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.on('ready', () => {
@@ -86,7 +84,7 @@ function sendNews(news) {
     })
 }
 
-schedule.scheduleJob('0 0 0 * * *', () => {
+schedule.scheduleJob('0 0 * * * *', () => {
     checkNews(0, sendNews);
 });
 
