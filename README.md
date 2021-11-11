@@ -1,8 +1,4 @@
 # Galnet News Bot #
-
-
-### What this is ###
----
 A discord bot that was coded to get the latest Galatic news (from https://community.elitedangerous.com) and send it to a channel if it hasn't been already
 
 How to use
