@@ -7,6 +7,7 @@ const { Util } = require('discord.js');
 require("./registerCommands.js")();
 const checkNews = require("./newsChecker.js");
 
+
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
