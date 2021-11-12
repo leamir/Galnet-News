@@ -2,6 +2,7 @@ require('dotenv').config();
 var request = require('request');
 const schedule = require('node-schedule');
 const util = require('util');
+const { Util } = require('discord.js');
 
 require("./registerCommands.js")();
 const checkNews = require("./newsChecker.js");
@@ -45,9 +46,6 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-/* 
-/eval code:sendNews({title:"hi",date:"today",content:"Beep boop beep. Beep boop?"}) 
-*/
 function sendNews(news) {
     const galnewsChannel = client.channels.cache.get(process.env.CHANNEL);
     const gallogsChannel = client.channels.cache.get(process.env.LOGS_CHANNEL);
@@ -78,9 +76,20 @@ function sendNews(news) {
             .replace(new RegExp("`", 'g'), '\\`')
             .replace(new RegExp(/\|/g, 'g'), '\\|');
 
-        gallogsChannel.send({content:`${news["title"]}\n${news["date"]}`});
-        galnewsChannel.send({content:`**${news["title"]}**\n${news["date"]}\n\n${news["body"]}\n\n<@&${process.env.PING_ROLE_ID}>`, split:true});
-
+        gallogsChannel.send(
+                {
+                    content:`${news["title"]}\n${news["date"]}`
+                }
+            );
+        const mes = Util.splitMessage(`**${news["title"]}**\n${news["date"]}\n\n${news["body"]}\n\n<@&${process.env.PING_ROLE_ID}>`)
+        mes.forEach(element => {
+            galnewsChannel.send(
+                {
+                    content: element,
+                    split: true
+                }
+            );
+        });
     })
 }
 

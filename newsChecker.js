@@ -1,14 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const extractArticles = $ => [
-    ...new Set(
-        $('.article h3 a i') // Select pagination links
-            .map((_, a) => $(a).text()) // Extract the href (url) from each link
-            .toArray() // Convert cheerio object to array
-    ),
-];
-
 function run(index, callback) {
 
     axios.get('https://community.elitedangerous.com').then(({ data }) => {
